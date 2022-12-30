@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
@@ -10,13 +10,17 @@ import { useNavigate } from "react-router-dom";
 import { styled } from '@mui/material/styles';
 import { AccountCircleRounded } from "@mui/icons-material";
 import { logout } from "../../auth/authUser";
-import { auth } from '../../firebase-config';
+import { AuthContext } from "../../authContext";
 
 const Offset = styled('div')(({ theme }) => theme.mixins.toolbar);
 
 const SiteHeader = ({ history }) => {
   const [anchorEl, setAnchorEl] = useState(null);
   const [anchorE2, setAnchorE2] = useState(null);
+
+  const context = useContext(AuthContext);
+
+  let auth = (context === null) ? false : context.isAuthenticated; 
 
   const open = Boolean(anchorEl);
 
@@ -66,7 +70,7 @@ const SiteHeader = ({ history }) => {
           </Typography>
           <>
             {
-              auth.currentUser ? (
+              auth ? (
                 <>
             <IconButton
             aria-label="menu"

@@ -1,8 +1,9 @@
-import React, {useState} from "react";
+import React, { useContext, useState } from "react";
 import TextField from '@mui/material/TextField';
 import { Button, Paper } from "@mui/material";
 import Grid2 from "@mui/material/Unstable_Grid2/Grid2";
 import { Link } from "react-router-dom";
+import { AuthContext } from '../../authContext';
 import { login } from '../../auth/authUser'
 import { useNavigate } from "react-router-dom";
 
@@ -17,16 +18,23 @@ const style = {
     maxWidth: 500
 }
 
-const LoginForm = () => {
+const LoginForm = props => {
+    const context = useContext(AuthContext)
     const [userName, setUserName] = useState("");
     const [password, setPassword] = useState("");
 
-    const navigate = useNavigate();
+    const login = () => {
+        context.authenticate(userName, password);
+      };
 
-    const onHandleChange = async () => {
-       await login(userName, password);
-        navigate("/", { replace: true });
-    }
+      const navigate = useNavigate();
+
+   // Set 'from' to path where browser is redirected after a successful login.
+  // Either / or the protected path user tried to access.
+
+  if (context.isAuthenticated === true) {
+    navigate("/", { replace: true });
+  }
 
     return (
         <Paper sx={style}>
@@ -38,7 +46,7 @@ const LoginForm = () => {
             <TextField id="filled-basic" label="Password" type="password" variant="filled" onChange={(event) => {setPassword(event.target.value)}}sx={root}/>
             </Grid2>
             <Grid2 sx={2}>
-            <Button variant="contained" sx={{ width: 100 }} onClick={onHandleChange}>Login</Button>
+            <Button variant="contained" sx={{ width: 100 }} onClick={login}>Login</Button>
                 </Grid2>
                 <Grid2 sx={2}>
                     <Link to="/signup">

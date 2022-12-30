@@ -22,6 +22,7 @@ import FavouritrTvShowPage from "./pages/favouriteTvShowsPage";
 import PrivateRoutes from "./privateRoute";
 import LoginPage from "./pages/loginPage";
 import SignUpPage from "./pages/signUpPage";
+import AuthProvider from "./authContext";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -37,6 +38,7 @@ const App = () => {
   return (
     <QueryClientProvider client={queryClient}>
     <BrowserRouter>
+      <AuthProvider>
       <SiteHeader />
         <MoviesContextProvider>
         <TvShowContextProvider> 
@@ -62,6 +64,7 @@ const App = () => {
             </Routes>
             </TvShowContextProvider> 
       </MoviesContextProvider>
+      </AuthProvider>
     </BrowserRouter>
     <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>

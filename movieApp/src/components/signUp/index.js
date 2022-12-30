@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import TextField from '@mui/material/TextField';
 import { Button, Paper } from "@mui/material";
 import Grid2 from "@mui/material/Unstable_Grid2/Grid2";
 import { register } from '../../auth/authUser'
 import { useNavigate } from "react-router-dom";
+import { AuthContext } from '../../authContext';
 
 const root = {
     width: 500
@@ -17,15 +18,23 @@ const style = {
 }
 
 const SignUpForm = () => {
-    const [userName, setUserName] = useState("");
-    const [password, setPassword] = useState("");
+    const context = useContext(AuthContext)
+  const [userName, setUserName] = useState("");
+  const [password, setPassword] = useState("");
+  const [passwordAgain, setPasswordAgain] = useState("");
+  const [registered, setRegistered] = useState(false);
+  const navigate = useNavigate();
 
-    const navigate = useNavigate();
-
-    const onHandleChange = async () => {
-        await register(userName, password);
-        navigate("/", { replace: true });
+  const register = () => {
+    if (password.length > 0 && password === passwordAgain) {
+      context.register(userName, password);
+      setRegistered(true);
     }
+  }
+
+  if (registered === true) {
+    navigate("/", { replace: true });
+  }
 
     return (
         <Paper sx={style}>
@@ -36,9 +45,11 @@ const SignUpForm = () => {
             <Grid2 xs={12}>
             <TextField id="filled-basic" label="Password" type="password" variant="filled" sx={root} onChange={(event) => {setPassword(event.target.value)}}  />
                 </Grid2>
+                <Grid2 xs={12}>
+            <TextField id="filled-basic" label="Password" type="password" variant="filled" sx={root} onChange={(event) => {setPasswordAgain(event.target.value)}}  />
+                </Grid2>
                 <Grid2 sx={2}>
-                    
-            <Button variant="contained" sx={{ width: 100 }} onClick={onHandleChange}>Sign Up</Button>
+            <Button variant="contained" sx={{ width: 100 }} onClick={register}>Sign Up</Button>
                 </Grid2>
             </Grid2 >  
         </Paper>    

@@ -1,9 +1,11 @@
+import React, { useContext } from "react";
 import { Navigate, Outlet } from 'react-router-dom';
-import { auth } from "./firebase-config";
+import { AuthContext } from "./authContext"
 
 const PrivateRoutes = () => {
   //let auth = { 'token': false }
-  let authUser = auth.currentUser;
+  const context = useContext(AuthContext)
+  let authUser = context.isAuthenticated;
 return (
     authUser ? <Outlet/> : <Navigate to='/login'/>
   )
