@@ -1,5 +1,5 @@
 import React from "react";
-import {  getPopularActors } from "../api/tmdb-api";
+import {  getActors } from "../api/movie-api";
 import PageTemplate from '../components/templateActorListPage';
 import { useQuery } from 'react-query';
 import Spinner from '../components/spinner';
@@ -10,7 +10,7 @@ import { Link, useLocation } from 'react-router-dom';
 
 const ActorListPage = (props) => {
   const [pageNumber, setPageNumber] = useState(1);
-  const {  data, error, isLoading, isError }  = useQuery(['Actors', {id: pageNumber}], getPopularActors)
+  const {  data, error, isLoading, isError }  = useQuery(['Actors', {id: pageNumber}], getActors)
 
   const location = useLocation();
   const query = new URLSearchParams(location.search);

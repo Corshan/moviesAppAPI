@@ -5,6 +5,8 @@ import movieModel from '../api/movies/movieModel';
 import movies from './movies.js';
 import genreModel from '../api/genres/genresModel';
 import genres from './genre.js';
+import actorModel from '../api/actors/actorModel';
+import actors from './actors.js';
 
 dotenv.config();
 
@@ -45,9 +47,21 @@ export async function loadGenres() {
   }
 }
 
+async function loadActors() {
+  console.log('load actors Data');
+  try {
+    await actorModel.deleteMany();
+    await actorModel.collection.insertMany(actors);
+    console.info(`${actors.length} actors were successfully stored.`);
+  } catch (err) {
+    console.error(`failed to Load actors Data: ${err}`);
+  }
+}
+
 // eslint-disable-next-line no-undef
 if (process.env.SEED_DB) {
   loadUsers();
   loadGenres();//you may not need this line if you skipped the exercises
   loadMovies();//ADD THIS LINE
+  loadActors();
 }
