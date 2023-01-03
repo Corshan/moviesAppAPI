@@ -1,6 +1,6 @@
 # Assignment 2 - Web API.
 ​
-Name: [Your Name]
+Name: Corey Shanahan
 ​
 ## Features.
 ​
@@ -9,12 +9,6 @@ Name: [Your Name]
  + Get Actors - gets a list of actors 
 ​
  + Get actor by id - gets an actors details by id
-​
- + Feature 3 - ......
-​
-   e.g.
-​
- + Get Similar Movies:  Get a list of similar movies using a movie ID. 
 ​
 ## Installation Requirements
 ​
@@ -56,8 +50,7 @@ Give an overview of your web API design, perhaps similar to the following:
 | /api/movies/{movieid}/reviews | Get all reviews for movie | Create a new review for Movie | N/A | N/A  
 | /api/actors | get a list of actors | N/A | N/A | N/A
 | /api/actors/{actorid} | get a actor | N/A | N/A | N/A
-​
-If you have your API design on an online platform or graphic, please link to it (e.g. [Swaggerhub](https://app.swaggerhub.com/)).
+| /api/genres | get genres | N/A | N/A | N/A
 ​
 ​
 ## Security and Authentication
