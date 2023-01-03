@@ -12,7 +12,7 @@ const ActorSchema = new Schema({
 });
 
 
-ActorSchema.statics.findByMovieDBId = function (id) {
+ActorSchema.statics.findByActorDBId = function (id) {
   return this.findOne({ id: id });
 };
 
